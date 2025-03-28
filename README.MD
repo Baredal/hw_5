@@ -32,6 +32,9 @@ http://localhost:8000/invoke is the main client service side, where client sends
 2. Database checks if already processed message exists
 3. If not exist it is processing message using business service, saves into database, where key is original text and value is processed text. If message already exist, database returns saved processed result with original text.
 
+# Usage
+After you set up the project, navigate into **inference.py** file, change variable *text_to_process* to desire message (text) in str format and run file. Output will be original and processed texts
+
 # Results
 This is an example of testing endpoints from **test.py** file.
 ![Testing](test.png)
