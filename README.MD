@@ -26,7 +26,7 @@ So start all services, copy the directory from github repository and in that dir
 ```bash 
 docker compose up
 ```
-- http://localhost:8000/invoke is the main client service side, where client sends text for processing. He can not directly call methods from 8001 and 8002 ports, this is handled with token-based mechanism in coded <br>
+http://localhost:8000/invoke is the main client service side, where client sends text for processing. He can not directly call methods from 8001 and 8002 ports, this is handled with token-based mechanism in coded <br>
 **Client → (Client Service) → Database Service → Business Logic Service → Database Service → Client:**
 1. Clients sends message through invoke
 2. Database checks if already processed message exists
