@@ -8,13 +8,13 @@ This project desings service microsystem that work together to provide a seamles
 The Client Service handles incoming requests from clients and interacts with the other services to process and respond to those requests
 - http://localhost:8000/
 
-### 2. **Database Service**
-The Database Service is responsible for interacting with the database, handling data storage and retrieval
-- http://localhost:8002/
-
-### 3. **Business Logic Service**
+### 2. **Business Logic Service**
 The Business Logic Service processes the data (message) to lowercase as an example of some ML operation
 - http://localhost:8001/
+
+### 3. **Database Service**
+The Database Service is responsible for interacting with the database, handling data storage and retrieval
+- http://localhost:8002/
 
 ### Prerequisites
 Make sure you have the following software installed:
