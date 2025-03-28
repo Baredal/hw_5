@@ -1,0 +1,32 @@
+version: "3.8"
+
+services:
+  database_service:
+    build: ./db_logic
+    ports:
+      - "8002:8002"
+    networks:
+      - app_network
+
+  business_service:
+    build: ./business_logic
+    ports:
+      - "8001:8001"
+    networks:
+      - app_network
+
+  client_service:
+    build: ./client_logic
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_TOKEN=YourSuperSecretToken
+      - DB_SERVICE_URL=http://database_service:8002
+      - BUSINESS_SERVICE_URL=http://business_service:8001
+    depends_on:
+      - database_service
+    networks:
+      - app_network
+
+networks:
+  app_network:
