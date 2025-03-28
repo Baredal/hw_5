@@ -23,8 +23,8 @@ Make sure you have the following software installed:
 
 
 ## Setup and Running the Services
-So start all services run
-'''docker compose up'''
+So start all services, copy the directory in github and in that directory run
+```bash docker compose up
 
 
 
