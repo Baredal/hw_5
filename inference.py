@@ -16,7 +16,7 @@ if __name__ == '__main__':
         "Authorization": "Bearer YourSuperSecretToken",
         "Content-Type": "application/json"
     }
-    text_to_process = 'HEllO, wORlD' # Change here you message for server
+    text_to_process = 'NEW wORlD' # Change here you message for server
 
     params = {
         "original_text": text_to_process
@@ -24,5 +24,5 @@ if __name__ == '__main__':
 
     response_client_service = requests.post("http://localhost:8000/invoke", headers=headers, params=params)
 
-    print("Processed message from server:", ''.join(list(response_client_service.json().values())))
+    print(f"Processed message from server: {response_client_service.json()}")
 
