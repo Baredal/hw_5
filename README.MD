@@ -24,7 +24,10 @@ Make sure you have the following software installed:
 
 ## Setup and Running the Services
 So start all services, copy the directory in github and in that directory run
-```bash docker compose up
+```bash 
+docker compose up
+- http://localhost:8000/invoke is the main client service side, where client sends text for processing. He can not directly call methods from 8001 and 8002 ports <br>
+
 
 
 
