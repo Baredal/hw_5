@@ -26,6 +26,10 @@ So start all services, copy the directory from github repository and in that dir
 ```bash 
 docker compose up
 ```
+and run
+```bash 
+pip install requirements.txt
+```
 http://localhost:8000/invoke is the main client service side, where client sends text for processing. He can not directly call methods from 8001 and 8002 ports, this is handled with token-based mechanism in code <br>
 **Client → (Client Service) → Database Service → Business Logic Service → Database Service → Client:**
 1. Clients sends message through invoke
@@ -34,7 +38,8 @@ http://localhost:8000/invoke is the main client service side, where client sends
 
 # Usage
 After you set up the project, navigate into **inference.py** file, change variable *text_to_process* to desire message (text) in str format and run file. Output will be original and processed texts <br>
-Also you can run **test.py** file to check everything works fine
+Also you can run **test.py** file to check everything works fine <br>
+For user interacting and testing library *requests* was used
 
 # Results
 This is an example of testing endpoints from **test.py** file.
