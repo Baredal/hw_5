@@ -23,6 +23,8 @@ Make sure you have the following software installed:
 
 
 ## Setup and Running the Services
+So start all services run
+'''docker compose up'''
 
 
 
