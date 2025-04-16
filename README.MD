@@ -45,16 +45,17 @@ This is an example of what user will get after runing client service in **infere
 
 # Homework 6
 ## Part 1
+Note, that i built all together with previous command in section **Setup**
 - Run podman build to create an image of your application.
 ```bash 
-podman build client_service
-docker build client_service
+docker build -t client_service
+podman build -t client_service
 ```
 
 - Use podman run to run the application container with your image.
 ```bash 
-podman run -d --name client_logic -p 8000:8000 client_service
-docker run -d --name client_logic -p 8000:8000 client_service
+podman run -d --name client_service -p 8000:8000 client_service
+docker run -d --name client_service -p 8000:8000 client_service
 ```
 
 - Make a test request to your service.
@@ -110,7 +111,6 @@ podman compose down
 3. Create a compose file that describes both of your applications.
 All is present in **scheduler_logic** with **scheduler_service.py** folder and  **docker-compose.yaml** main folder.
 - Run podman compose in the directory with compose file and according services.
-
 ```bash
 docker compose up
 podman-compose up --build -d
@@ -121,5 +121,22 @@ podman-compose up --build -d
 docker ps
 podman ps
 ```
+All containers started
+![Check](container_check.png)
+
+- Verify that the scheduled container is able to access the main application.
+- Verify that the main application correctly processes input requests.
+Responses from main app using scheduler
+![Scheduler results](scheduler.png)
+Every 10 seconds scheduler sends text prompt to client service logic in file **scheduler_service.py**. The obtained results displayed on image. This is the simulation of some ML transformation (in this case all text to lowercase, could be any AI model with API). Apparently, the scheduler didn't blocks the main application process, it was checked by running scheduler and **test.py** files simultaneously. The results was the same from **test.py** file and all works together
+
+![Running test with scheduler on](test.png)
+
+- Do not forget to clean the working environment
+```bash
+docker compose down
+podman compose down
+```
+
 # Notes
 For more information, you can check each file, where is stored all endpoints and code.
