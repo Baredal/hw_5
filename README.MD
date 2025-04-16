@@ -36,31 +36,33 @@ http://localhost:8000/invoke is the main client service side, where client sends
 2. Database checks if already processed message exists
 3. If not exist it is processing message using business service, saves into database, where key is original text and value is processed text. If message already exist, database returns saved processed result with original text.
 
-# Usage
+# Results
 After you set up the project, navigate into **inference.py** file, change variable *text_to_process* to desire message (text) in str format and run file. Output will be original and processed texts <br>
 Also you can run **test.py** file to check everything works fine <br>
 For user interacting and testing library *requests* was used
+This is an example of what user will get after runing client service in **inference.py** file
+![Processing](inference.png)
 
-
+# Homework 6 (part 1)
 -- Run podman build to create an image of your application.
 ```bash 
 podman build client_service
 docker build client_service
 ```
 
--- Use podman run to run the application container with your image.
+- Use podman run to run the application container with your image.
 ```bash 
 podman run -d --name client_logic -p 8000:8000 client_service
 docker run -d --name client_logic -p 8000:8000 client_service
 ```
 
--- Make a test request to your service.
+- Make a test request to your service.
 This is an example of testing endpoints from **test.py** file.
 ![Testing](test.png)
 
--- Check service logs.
+- Check service logs.
 After runnigs **test.py** file the following logs present from containers
-- Database container
+Database container
 ```bash
 2025-04-16 13:47:02 INFO:     Started server process [1]
 2025-04-16 13:47:02 INFO:     Waiting for application startup.
@@ -74,7 +76,7 @@ After runnigs **test.py** file the following logs present from containers
 2025-04-16 13:48:37 INFO:     172.18.0.1:38704 - "GET /read?original_text=%7Boriginal_text%7D HTTP/1.1" 403 Forbidden
 2025-04-16 13:48:37 INFO:     172.18.0.4:47632 - "GET /read?original_text=An+EXAMPLE+of+MESSAGE+For+ML+procseSING HTTP/1.1" 200 OK
 ```
-- Business container
+Business container
 ```bash
 2025-04-16 13:47:02 INFO:     Started server process [1]
 2025-04-16 13:47:02 INFO:     Waiting for application startup.
@@ -85,7 +87,7 @@ After runnigs **test.py** file the following logs present from containers
 2025-04-16 13:48:37 INFO:     172.18.0.1:42038 - "GET / HTTP/1.1" 200 OK
 2025-04-16 13:48:37 INFO:     172.18.0.1:42054 - "POST /process HTTP/1.1" 403 Forbidden
 ```
-- Client service container
+Client service container
 ```bash
 2025-04-16 13:47:02 INFO:     Started server process [1]
 2025-04-16 13:47:02 INFO:     Waiting for application startup.
@@ -96,10 +98,11 @@ After runnigs **test.py** file the following logs present from containers
 2025-04-16 13:48:37 INFO:     172.18.0.1:54720 - "GET / HTTP/1.1" 200 OK
 2025-04-16 13:48:37 INFO:     172.18.0.1:54730 - "POST /invoke?original_text=An+EXAMPLE+of+MESSAGE+For+ML+procseSING HTTP/1.1" 200 OK
 ```
-
-# Results
-This is an example of what user will get after runing client service in **inference.py** file
-![Processing](inference.png)
+- Clean working environment.
+```bash
+docker compose down
+podman compose down
+```
 
 # Notes
 For more information, you can check each file, where is stored all endpoints and code.
