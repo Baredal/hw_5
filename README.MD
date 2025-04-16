@@ -39,7 +39,7 @@ http://localhost:8000/invoke is the main client service side, where client sends
 # Results
 After you set up the project, navigate into **inference.py** file, change variable *text_to_process* to desire message (text) in str format and run file. Output will be original and processed texts <br>
 Also you can run **test.py** file to check everything works fine <br>
-For user interacting and testing library *requests* was used
+For user interacting and testing library *requests* was used <br>
 This is an example of what user will get after runing client service in **inference.py** file
 ![Processing](inference.png)
 
@@ -53,9 +53,9 @@ podman build -t client_service
 ```
 
 - Use podman run to run the application container with your image.
-```bash 
-podman run -d --name client_service -p 8000:8000 client_service
+```bash
 docker run -d --name client_service -p 8000:8000 client_service
+podman run -d --name client_service -p 8000:8000 client_service
 ```
 
 - Make a test request to your service.
@@ -63,7 +63,7 @@ This is an example of testing endpoints from **test.py** file.
 ![Testing](test.png)
 
 - Check service logs.
-After runnigs **test.py** file the following logs present from containers
+After runnig **test.py** file the following logs present from containers <br>
 Database container
 ```bash
 2025-04-16 13:47:02 INFO:     Started server process [1]
@@ -128,7 +128,7 @@ All containers started
 - Verify that the main application correctly processes input requests.
 Responses from main app using scheduler
 ![Scheduler results](scheduler.png)
-Every 10 seconds scheduler sends text prompt to client service logic in file **scheduler_service.py**. The obtained results displayed on image. This is the simulation of some ML transformation (in this case all text to lowercase, could be any AI model with API). Apparently, the scheduler didn't blocks the main application process, it was checked by running scheduler and **test.py** files simultaneously. The results was the same from **test.py** file and all works together
+Every 10 seconds scheduler sends text prompt to client service logic in file **scheduler_service.py**. The obtained results displayed on image. This is the simulation of some ML transformation (in this case all text to lowercase, could be any AI model with API). Apparently, the scheduler didn't blocks the main application process, it was checked by set up **docker** with scheduler and running **test.py** files simultaneously. The results was the same from **test.py** file and all works together
 
 ![Running test with scheduler on](test.png)
 
