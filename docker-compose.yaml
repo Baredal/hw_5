@@ -3,20 +3,19 @@ version: "3.8"
 services:
   database_service:
     build: ./db_logic
+    container_name: database_service
     ports:
       - "8002:8002"
-    networks:
-      - app_network
 
   business_service:
     build: ./business_logic
+    container_name: business_service
     ports:
       - "8001:8001"
-    networks:
-      - app_network
 
   client_service:
     build: ./client_logic
+    container_name: client_service
     ports:
       - "8000:8000"
     environment:
@@ -25,8 +24,11 @@ services:
       - BUSINESS_SERVICE_URL=http://business_service:8001
     depends_on:
       - database_service
-    networks:
-      - app_network
 
-networks:
-  app_network:
+  scheduler_service:
+    build: ./scheduler_logic
+    container_name: scheduler_service
+    ports:
+      - "8003:8003"
+    depends_on:
+      - database_service
