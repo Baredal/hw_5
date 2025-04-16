@@ -63,7 +63,8 @@ This is an example of testing endpoints from **test.py** file.
 ![Testing](test.png)
 
 - Check service logs.
-After runnig **test.py** file the following logs present from containers <br>
+After runnig **test.py** file the following logs present from containers
+###
 Database container
 ```bash
 2025-04-16 13:47:02 INFO:     Started server process [1]
