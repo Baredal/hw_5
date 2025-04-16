@@ -105,5 +105,21 @@ docker compose down
 podman compose down
 ```
 ## Part 2
+1. Create a second fastAPI application. Make sure it has the URL to the first service stored securely.
+2. The logic of the second application should be plain simple: it should call the first one on a scheduled basis, let’s say every 10 seconds.
+3. Create a compose file that describes both of your applications.
+All is present in **scheduler_logic** with **scheduler_service.py** folder and  **docker-compose.yaml** main folder.
+- Run podman compose in the directory with compose file and according services.
+
+```bash
+docker compose up
+podman-compose up --build -d
+```
+
+- Verify both containers started.
+```bash
+docker ps
+podman ps
+```
 # Notes
 For more information, you can check each file, where is stored all endpoints and code.
