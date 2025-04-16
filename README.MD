@@ -29,6 +29,7 @@ and run
 ```bash 
 pip install requirements.txt
 ```
+
 http://localhost:8000/invoke is the main client service side, where client sends text for processing. He can not directly call methods from 8001 and 8002 ports, this is handled with token-based mechanism in code <br>
 **Client → (Client Service) → Database Service → Business Logic Service → Database Service → Client:**
 1. Clients sends message through invoke
@@ -40,9 +41,63 @@ After you set up the project, navigate into **inference.py** file, change variab
 Also you can run **test.py** file to check everything works fine <br>
 For user interacting and testing library *requests* was used
 
-# Results
+
+-- Run podman build to create an image of your application.
+```bash 
+podman build client_service
+docker build client_service
+```
+
+-- Use podman run to run the application container with your image.
+```bash 
+podman run -d --name client_logic -p 8000:8000 client_service
+docker run -d --name client_logic -p 8000:8000 client_service
+```
+
+-- Make a test request to your service.
 This is an example of testing endpoints from **test.py** file.
 ![Testing](test.png)
+
+-- Check service logs.
+After runnigs **test.py** file the following logs present from containers
+- Database container
+```bash
+2025-04-16 13:47:02 INFO:     Started server process [1]
+2025-04-16 13:47:02 INFO:     Waiting for application startup.
+2025-04-16 13:47:02 INFO:     Application startup complete.
+2025-04-16 13:47:02 INFO:     Uvicorn running on http://0.0.0.0:8002 (Press CTRL+C to quit)
+2025-04-16 13:48:37 INFO:     172.18.0.4:47610 - "GET /read?original_text=An+EXAMPLE+of+MESSAGE+For+ML+procseSING HTTP/1.1" 200 OK
+2025-04-16 13:48:37 INFO:     172.18.0.4:47618 - "POST /write HTTP/1.1" 200 OK
+2025-04-16 13:48:37 INFO:     172.18.0.1:38672 - "GET /health HTTP/1.1" 200 OK
+2025-04-16 13:48:37 INFO:     172.18.0.1:38684 - "GET / HTTP/1.1" 200 OK
+2025-04-16 13:48:37 INFO:     172.18.0.1:38696 - "POST /write HTTP/1.1" 403 Forbidden
+2025-04-16 13:48:37 INFO:     172.18.0.1:38704 - "GET /read?original_text=%7Boriginal_text%7D HTTP/1.1" 403 Forbidden
+2025-04-16 13:48:37 INFO:     172.18.0.4:47632 - "GET /read?original_text=An+EXAMPLE+of+MESSAGE+For+ML+procseSING HTTP/1.1" 200 OK
+```
+- Business container
+```bash
+2025-04-16 13:47:02 INFO:     Started server process [1]
+2025-04-16 13:47:02 INFO:     Waiting for application startup.
+2025-04-16 13:47:02 INFO:     Application startup complete.
+2025-04-16 13:47:02 INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-04-16 13:48:37 INFO:     172.18.0.4:57074 - "POST /process HTTP/1.1" 200 OK
+2025-04-16 13:48:37 INFO:     172.18.0.1:42034 - "GET /health HTTP/1.1" 200 OK
+2025-04-16 13:48:37 INFO:     172.18.0.1:42038 - "GET / HTTP/1.1" 200 OK
+2025-04-16 13:48:37 INFO:     172.18.0.1:42054 - "POST /process HTTP/1.1" 403 Forbidden
+```
+- Client service container
+```bash
+2025-04-16 13:47:02 INFO:     Started server process [1]
+2025-04-16 13:47:02 INFO:     Waiting for application startup.
+2025-04-16 13:47:02 INFO:     Application startup complete.
+2025-04-16 13:47:02 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-16 13:48:37 INFO:     172.18.0.1:54700 - "POST /invoke?original_text=An+EXAMPLE+of+MESSAGE+For+ML+procseSING HTTP/1.1" 200 OK
+2025-04-16 13:48:37 INFO:     172.18.0.1:54708 - "GET /health HTTP/1.1" 200 OK
+2025-04-16 13:48:37 INFO:     172.18.0.1:54720 - "GET / HTTP/1.1" 200 OK
+2025-04-16 13:48:37 INFO:     172.18.0.1:54730 - "POST /invoke?original_text=An+EXAMPLE+of+MESSAGE+For+ML+procseSING HTTP/1.1" 200 OK
+```
+
+# Results
 This is an example of what user will get after runing client service in **inference.py** file
 ![Processing](inference.png)
 
