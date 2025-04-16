@@ -43,8 +43,9 @@ For user interacting and testing library *requests* was used
 This is an example of what user will get after runing client service in **inference.py** file
 ![Processing](inference.png)
 
-# Homework 6 (part 1)
--- Run podman build to create an image of your application.
+# Homework 6
+## Part 1
+- Run podman build to create an image of your application.
 ```bash 
 podman build client_service
 docker build client_service
@@ -103,6 +104,6 @@ Client service container
 docker compose down
 podman compose down
 ```
-
+## Part 2
 # Notes
 For more information, you can check each file, where is stored all endpoints and code.
